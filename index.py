@@ -25,16 +25,20 @@ while True:
                 sorting = False
                 finished = False
                 si = 0
+                fi = 0
     
     if sorting:
-        if max(towers) != towers[si]:
-            gr_ind = towers.index(max(towers[si:]))
-            towers[si], towers[gr_ind] = towers[gr_ind], towers[si]
-            si += 1
-
+        
         if towers == sorted(towers, reverse=True):
             sorting = False
             finished = True
+
+        if si < len(towers):
+            if max(towers) != towers[si]:
+                gr_ind = towers.index(max(towers[si:]))
+                towers[si], towers[gr_ind] = towers[gr_ind], towers[si]
+                si += 1
+
 
     if finished: 
         pygame.draw.rect(screen, (0,255,0), (fi*2, height-fi*2, 2, fi*2))
@@ -42,8 +46,6 @@ while True:
 
     else:
         screen.fill((255,255,255))
-        def info(i,x): 
-            return (i*12, 0, 12, x)
         for i in range(len(towers)):
             pygame.draw.rect(screen, (0,0,0), (i*tower_width, 0, tower_width, towers[i]))
         
