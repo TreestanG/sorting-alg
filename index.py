@@ -24,7 +24,7 @@ while True:
             else:
                 sorting = True
                 if event.key == K_q:
-                    sort_type = "quick"
+                    sort_type = "insertion"
                 if event.key == K_b:
                     sort_type == "bubble"
     
@@ -39,7 +39,7 @@ while True:
                     gr_ind = towers.index(min(towers[si:]))
                     towers[si], towers[gr_ind] = towers[gr_ind], towers[si]
                     si += 1
-        elif sort_type == "quick":
+        elif sort_type == "insertion":
             
             if si < len(towers)-1:
                 next_num = towers[si+1]
