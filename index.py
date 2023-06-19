@@ -5,7 +5,7 @@ pygame.init()
 pygame.display.set_caption('Sorting Algorithm')
 
 width, height, tower_width = 600, 600, 2
-sorting, finished, si, fi, sort_type = False, False, 0, 0, "bubble"
+sorting, finished, si, fi, sort_type = False, False, 0, 0, ""
 screen = pygame.display.set_mode((width, height))
 towers = random.sample([(x+1)*tower_width for x in range(math.floor(width/tower_width))], math.floor(width/tower_width))
 
@@ -23,10 +23,12 @@ while True:
                 fi = 0
             else:
                 sorting = True
-                if event.key == K_q:
+                if event.key == K_i:
                     sort_type = "insertion"
                 if event.key == K_b:
-                    sort_type == "bubble"
+                    sort_type = "bubble"
+                if event.key == K_s:
+                    sort_type = "selection"
     
     if sorting:
         if towers == sorted(towers):
@@ -34,13 +36,11 @@ while True:
             finished = True
 
         if sort_type == "bubble":
-            if si < len(towers):
-                if min(towers) != towers[si]:
-                    gr_ind = towers.index(min(towers[si:]))
-                    towers[si], towers[gr_ind] = towers[gr_ind], towers[si]
-                    si += 1
+            for num in range(len(towers)):
+                if num < len(towers)-1:
+                    if towers[num] > towers[num+1]:
+                        towers[num], towers[num+1] = towers[num+1], towers[num]
         elif sort_type == "insertion":
-            
             if si < len(towers)-1:
                 next_num = towers[si+1]
                 if towers[si] > next_num:
@@ -50,6 +50,11 @@ while True:
                             towers.insert(towers.index(i), next_num)
                             break
                 si += 1
+        elif sort_type == "selection":
+            for a in range(len(towers[si+1:])):
+                if towers[si] > towers[si+1+a]:
+                    towers[si], towers[si+1+a] = towers[si+1+a], towers[si]
+            si += 1
 
     if finished: 
         pygame.draw.rect(screen, (0,255,0), (fi*2, height-fi*2, 2, fi*2))
